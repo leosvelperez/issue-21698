@@ -1,0 +1,157 @@
+{
+  "name": "extranet",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/extranet/src",
+  "prefix": "wink",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "allowedCommonJsDependencies": [
+          "hammerjs",
+          "clone-deep",
+          "lodash.clonedeep",
+          "lodash.debounce",
+          "flat",
+          "fast-sha256",
+          "rfdc"
+        ],
+        "baseHref": "/",
+        "outputPath": "dist/apps/extranet",
+        "index": "apps/extranet/src/index.html",
+        "browser": "apps/extranet/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/extranet/tsconfig.app.json",
+        "stylePreprocessorOptions": {
+          "includePaths": ["shared-styles/common", "shared-styles/extranet"]
+        },
+        "assets": [
+          "apps/extranet/src/assets",
+          "apps/extranet/src/manifest.json",
+          "apps/extranet/src/robots.txt"
+        ],
+        "styles": [
+          "apps/extranet/src/assets/styles/traveliko.css",
+          "shared-styles/extranet/theme/default/styles.scss"
+        ],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/extranet/src/environments/environment.ts",
+              "with": "apps/extranet/src/environments/environment.prod.ts"
+            }
+          ],
+          "baseHref": "/",
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": true
+            },
+            "fonts": true
+          },
+          "outputHashing": "all",
+          "sourceMap": {
+            "scripts": true,
+            "hidden": true
+          },
+          "namedChunks": false,
+          "extractLicenses": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "3mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "25kb",
+              "maximumError": "30kb"
+            }
+          ],
+          "serviceWorker": "apps/extranet/ngsw-config.json"
+        },
+        "staging": {
+          "fileReplacements": [
+            {
+              "replace": "apps/extranet/src/environments/environment.ts",
+              "with": "apps/extranet/src/environments/environment.staging.ts"
+            }
+          ],
+          "baseHref": "/",
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": true
+            },
+            "fonts": true
+          },
+          "outputHashing": "all",
+          "sourceMap": {
+            "scripts": true,
+            "hidden": true
+          },
+          "namedChunks": false,
+          "extractLicenses": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "3mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "25kb",
+              "maximumError": "30kb"
+            }
+          ],
+          "serviceWorker": "apps/extranet/ngsw-config.json"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "development": {
+          "buildTarget": "extranet:build:development"
+        },
+        "production": {
+          "buildTarget": "extranet:build:production"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "extranet:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/extranet"],
+      "options": {
+        "jestConfig": "apps/extranet/jest.config.ts"
+      }
+    }
+  },
+  "tags": ["domain:extranet", "type:app"],
+  "implicitDependencies": []
+}
